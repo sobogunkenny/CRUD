@@ -1,26 +1,33 @@
 
-from django.views.generic.edit import ListView, CreateView, DetailView, UpdateView 
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views import generic
 from .models import Post
 
-class PostListView(ListView):
+class PostListView(generic.ListView):
     model = Post
+    template_name = "blog/post_list.html"
 
-class PostCreateView(CreateView):
+class PostCreateView(generic.CreateView):
     model = Post
     fields = "__all__"
     success_url = reverse_lazy("blog:all")
+    template_name = "blog/post_form.html"
 
-class PostDetailView(DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
+    template_name = "blog/post_detail.html"
 
-class PostUpdateView(UpdateView):
-    model = Post
-    fields = "__all__"
-    success_url = reverse_lazy("blog:all")
-
-class PostDeleteView(UpdateView):
+class PostUpdateView(generic.UpdateView):
     model = Post
     fields = "__all__"
     success_url = reverse_lazy("blog:all")
+    template_name = "blog/post_form.html"
+
+class PostDeleteView(generic.DeleteView):
+    model = Post
+    fields = "__all__"
+    success_url = reverse_lazy("blog:all")
+    template_name = "blog/post_confirm_delete.html"
 
 
